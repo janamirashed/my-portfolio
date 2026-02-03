@@ -13,7 +13,6 @@ A personal portfolio website featuring a unique, interactive **iOS-style chat in
 
 - **Framework**: Angular
 - **Styling**: CSS (Custom iOS aesthetic)
-- **Deployment**: Github Pages / Vercel (TBD)
 
 ## 🚀 Getting Started
 
@@ -33,4 +32,4 @@ To run this project locally:
    Navigate to `http://localhost:4200/`.
 
 ---
-*Built with ❤️ by [Your Name]*
+*Built with ❤️*
