@@ -48,18 +48,12 @@
         <p class="greeting-text">Hey, I'm <span class="name-highlight">Jana :D</span></p>
     </header>
 
-    <!-- Memoji & Orbiting Thought Bubbles Stage -->
+    <!-- Memoji & Thought Fan Stage -->
     <div class="memoji-thought-stage">
-        <!-- Memoji Avatar Center -->
-        <div class="memoji-wrapper">
-            <img src="avatar.png" alt="Avatar" class="memoji memoji-default" />
-            <img src="avatar-hover.png" alt="Avatar looking at you" class="memoji memoji-hover" />
-        </div>
-
-        <!-- Orbiting Thought Bubbles around Avatar -->
-        <div class="thought-orbit-container">
+        <!-- Thought Fan Container floating right over avatar head -->
+        <div class="thought-fan-container">
             @for (pill of navPills; track pill.label; let i = $index) {
-            <div class="thought-bubble-anchor" [class]="'pos-' + (i + 1)">
+            <div class="thought-bubble-wrapper" [class]="'pos-' + (i + 1)">
                 <!-- Individual Thought Bubble -->
                 <button class="thought-bubble" [class]="'thought-bubble ' + pill.class"
                         [style.animation-delay]="(i * 0.45) + 's'"
@@ -116,13 +110,19 @@
                     <span class="bubble-label">{{ pill.label }}</span>
                 </button>
 
-                <!-- Tail stem for this individual thought bubble -->
+                <!-- Tail stem for this individual thought bubble leading to head -->
                 <div class="individual-thought-tail">
                     <span class="tail-dot dot-outer"></span>
                     <span class="tail-dot dot-inner"></span>
                 </div>
             </div>
             }
+        </div>
+
+        <!-- Memoji Avatar Base Anchor -->
+        <div class="memoji-wrapper">
+            <img src="avatar.png" alt="Avatar" class="memoji memoji-default" />
+            <img src="avatar-hover.png" alt="Avatar looking at you" class="memoji memoji-hover" />
         </div>
     </div>
 
