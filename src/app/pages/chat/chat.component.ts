@@ -39,6 +39,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     showLightbox = false;
     lightboxImage = '';
 
+    // Avatar preview modal state
+    showAvatarModal = false;
+
     // iOS Menu state
     showIosMenu = false;
     menuImage = '';
@@ -217,6 +220,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     closePhonePopup(): void {
         this.showPhonePopup = false;
+    }
+
+    openAvatarPreview(): void {
+        this.showAvatarModal = true;
+    }
+
+    closeAvatarPreview(): void {
+        this.showAvatarModal = false;
     }
 
     // iOS Menu methods

@@ -7,9 +7,8 @@
             </svg>
         </button>
 
-        <div class="header-profile">
-            <img src="avatar.png" alt="Jana" class="header-avatar header-avatar-default" />
-            <img src="avatar-hover.png" alt="Jana looking at you" class="header-avatar header-avatar-hover" />
+        <div class="header-profile" (click)="openAvatarPreview()" title="View profile picture">
+            <img src="avatar.png" alt="Jana" class="header-avatar" />
         </div>
 
         <div class="header-actions">
@@ -169,5 +168,26 @@
 <div class="ios-lightbox" (click)="closeLightbox()">
     <button class="lightbox-close" (click)="closeLightbox()">×</button>
     <img [src]="lightboxImage" alt="Full View">
+</div>
+}
+
+<!-- Profile Picture Lightbox Modal -->
+@if (showAvatarModal) {
+<div class="pfp-lightbox" (click)="closeAvatarPreview()">
+    <div class="pfp-card" (click)="$event.stopPropagation()">
+        <button class="pfp-close-btn" (click)="closeAvatarPreview()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="pfp-img-wrapper">
+            <img src="avatar.png" alt="Jana Profile Picture" class="pfp-full-img" />
+        </div>
+        <div class="pfp-footer">
+            <span class="pfp-name">Jana</span>
+            <span class="pfp-status">Online</span>
+        </div>
+    </div>
 </div>
 }
