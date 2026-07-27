@@ -1,16 +1,18 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-landing',
     standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule, CommonModule],
     templateUrl: './landing.component.html',
     styleUrl: './landing.component.css'
 })
-export class LandingComponent implements AfterViewInit {
+export class LandingComponent implements OnInit, AfterViewInit {
     userInput = '';
+    showNotification = false;
 
     navPills = [
         { label: 'Me', message: 'Tell me about yourself', class: 'pill-me', icon: 'smile' },
@@ -21,6 +23,20 @@ export class LandingComponent implements AfterViewInit {
     ];
 
     constructor(private router: Router) { }
+
+    ngOnInit(): void {
+        // Show iOS notification popup shortly after website opens
+        setTimeout(() => {
+            this.showNotification = true;
+            setTimeout(() => {
+                this.showNotification = false;
+            }, 6500);
+        }, 800);
+    }
+
+    dismissNotification(): void {
+        this.showNotification = false;
+    }
 
     ngAfterViewInit(): void {
         // Load the fluid simulation script

@@ -86,7 +86,6 @@
     cursor: pointer;
     width: 180px;
     height: 180px;
-    perspective: 1000px;
 }
 
 .memoji {
@@ -99,8 +98,7 @@
 .memoji-default {
     display: block;
     opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.25s ease-out, transform 0.35s ease-out;
+    transition: opacity 0.35s ease-in-out;
 }
 
 .memoji-hover {
@@ -108,20 +106,103 @@
     top: 0;
     left: 0;
     opacity: 0;
-    transform: scale(0.5);
     pointer-events: none;
-    transition: opacity 0.25s ease-out, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: opacity 0.35s ease-in-out;
 }
 
 .memoji-wrapper:hover .memoji-default {
     opacity: 0;
-    transform: scale(0.95);
 }
 
 .memoji-wrapper:hover .memoji-hover {
     opacity: 1;
-    transform: scale(1.05);
-    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.2));
+}
+
+/* iOS Notification Banner */
+.ios-banner {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 360px;
+    max-width: calc(100vw - 32px);
+    background: rgba(246, 246, 248, 0.92);
+    backdrop-filter: blur(25px) saturate(190%);
+    -webkit-backdrop-filter: blur(25px) saturate(190%);
+    border-radius: 22px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    cursor: pointer;
+    overflow: hidden;
+    user-select: none;
+    animation: iosSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.ios-banner:hover {
+    transform: scale(1.02);
+}
+
+.ios-banner:active {
+    transform: scale(0.98);
+}
+
+.ios-banner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px 4px;
+}
+
+.ios-banner-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #6e6e73;
+    text-transform: uppercase;
+}
+
+.ios-banner-icon {
+    width: 18px;
+    height: 18px;
+    background: #34C759;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ios-banner-icon svg {
+    width: 12px;
+    height: 12px;
+    fill: #ffffff;
+}
+
+.ios-banner-time {
+    font-size: 11px;
+    color: #8e8e93;
+    font-weight: 400;
+}
+
+.ios-banner-body {
+    padding: 4px 14px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1d1d1f;
+    line-height: 1.35;
+}
+
+@keyframes iosSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* Input Section */
