@@ -290,121 +290,167 @@
     height: 20px;
 }
 
-/* Suggestion Pills */
-.suggestion-nav {
-    display: flex;
-    gap: 12px;
-    z-index: 10;
-    justify-content: center;
-    animation: fadeInUp 0.8s ease-out 0.6s backwards;
-    flex-wrap: nowrap;
-    padding: 0 16px;
-}
-
-.nav-pill {
+/* Memoji & Thought Bubbles Container */
+.memoji-thought-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.thought-cloud-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+/* Floating Thought Bubbles Grid */
+.thought-bubbles-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    max-width: 680px;
+    padding: 0 16px;
+    position: relative;
+}
+
+.thought-bubble {
+    display: flex;
+    align-items: center;
     gap: 8px;
-    padding: 18px 28px;
-    min-width: 100px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 16px;
+    padding: 12px 22px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.06),
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        inset 0 1px 1px rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
+    position: relative;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: thoughtFloat 3.5s ease-in-out infinite alternate;
 }
 
-.nav-pill:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+@keyframes thoughtFloat {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(0.8deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
-.nav-pill:active {
-    transform: scale(0.97);
+.thought-bubble:hover {
+    transform: scale(1.08) translateY(-6px);
+    box-shadow: 
+        0 16px 40px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 15;
+}
+
+.thought-bubble:active {
+    transform: scale(0.96);
+}
+
+.bubble-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    color: #1d1d1f;
 }
 
 .pill-icon {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
 }
 
-.pill-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #374151;
+/* Thought Trail Circles pointing down to Memoji head */
+.thought-trail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
 }
 
-/* Individual pill colors */
+.thought-dot {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    animation: thoughtDotPulse 2.5s ease-in-out infinite alternate;
+}
+
+.dot-large {
+    width: 14px;
+    height: 14px;
+}
+
+.dot-medium {
+    width: 10px;
+    height: 10px;
+    animation-delay: 0.2s;
+}
+
+.dot-small {
+    width: 6px;
+    height: 6px;
+    animation-delay: 0.4s;
+}
+
+@keyframes thoughtDotPulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Pill specific thought cloud color tints */
 .pill-me {
-    background: linear-gradient(180deg, rgba(50, 150, 150, 0.08) 0%, rgba(255, 255, 255, 0.9) 100%);
-    border-color: rgba(50, 150, 150, 0.12);
+    background: linear-gradient(180deg, rgba(50, 150, 150, 0.12) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-color: rgba(50, 150, 150, 0.3);
 }
 
-.pill-me .pill-icon {
-    color: var(--pill-me);
-}
-
-.pill-me:hover {
-    background: linear-gradient(180deg, rgba(50, 150, 150, 0.15) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
+.pill-me .pill-icon { color: var(--pill-me); }
 
 .pill-projects {
-    background: linear-gradient(180deg, rgba(62, 152, 88, 0.08) 0%, rgba(255, 255, 255, 0.9) 100%);
-    border-color: rgba(62, 152, 88, 0.12);
+    background: linear-gradient(180deg, rgba(62, 152, 88, 0.12) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-color: rgba(62, 152, 88, 0.3);
 }
 
-.pill-projects .pill-icon {
-    color: var(--pill-projects);
-}
-
-.pill-projects:hover {
-    background: linear-gradient(180deg, rgba(62, 152, 88, 0.15) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
+.pill-projects .pill-icon { color: var(--pill-projects); }
 
 .pill-skills {
-    background: linear-gradient(180deg, rgba(133, 110, 217, 0.08) 0%, rgba(255, 255, 255, 0.9) 100%);
-    border-color: rgba(133, 110, 217, 0.12);
+    background: linear-gradient(180deg, rgba(133, 110, 217, 0.12) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-color: rgba(133, 110, 217, 0.3);
 }
 
-.pill-skills .pill-icon {
-    color: var(--pill-skills);
-}
-
-.pill-skills:hover {
-    background: linear-gradient(180deg, rgba(133, 110, 217, 0.15) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
+.pill-skills .pill-icon { color: var(--pill-skills); }
 
 .pill-fun {
     background: linear-gradient(180deg, rgba(185, 95, 157, 0.12) 0%, rgba(255, 255, 255, 0.9) 100%);
-    border-color: rgba(185, 95, 157, 0.15);
+    border-color: rgba(185, 95, 157, 0.3);
 }
 
-.pill-fun .pill-icon {
-    color: var(--pill-fun);
-}
-
-.pill-fun:hover {
-    background: linear-gradient(180deg, rgba(185, 95, 157, 0.2) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
+.pill-fun .pill-icon { color: var(--pill-fun); }
 
 .pill-contact {
-    background: linear-gradient(180deg, rgba(193, 148, 51, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
-    border-color: rgba(193, 148, 51, 0.15);
+    background: linear-gradient(180deg, rgba(193, 148, 51, 0.12) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-color: rgba(193, 148, 51, 0.3);
 }
 
-.pill-contact .pill-icon {
-    color: var(--pill-contact);
-}
-
-.pill-contact:hover {
-    background: linear-gradient(180deg, rgba(193, 148, 51, 0.18) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
+.pill-contact .pill-icon { color: var(--pill-contact); }
 
 /* Responsive */
 @media (max-width: 600px) {
@@ -414,25 +460,21 @@
         height: 140px;
     }
 
-    .suggestion-nav {
-        flex-wrap: wrap;
+    .thought-bubbles-grid {
         gap: 8px;
     }
 
-    .nav-pill {
-        padding: 14px 18px;
-        min-width: 80px;
-        flex: 1 1 calc(33% - 8px);
-        max-width: calc(33% - 8px);
+    .thought-bubble {
+        padding: 10px 16px;
     }
 
-    .pill-label {
+    .bubble-label {
         font-size: 12px;
     }
 
     .pill-icon {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
     }
 }
 
@@ -446,11 +488,6 @@
     .memoji {
         width: 200px;
         height: 200px;
-    }
-
-    .nav-pill {
-        padding: 20px 32px;
-        min-width: 110px;
     }
 
     .input-section {
