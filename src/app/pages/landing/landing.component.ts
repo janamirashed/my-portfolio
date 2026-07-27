@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,20 +22,28 @@ export class LandingComponent implements OnInit, AfterViewInit {
         { label: 'Contact', message: 'How can I contact you?', class: 'pill-contact', icon: 'search' }
     ];
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private cdr: ChangeDetectorRef
+    ) { }
 
     ngOnInit(): void {
-        // Show iOS notification popup shortly after website opens
+        // Show iOS banner popup on website opening
         setTimeout(() => {
             this.showNotification = true;
+            this.cdr.detectChanges();
+
+            // Auto hide after 10 seconds if not dismissed
             setTimeout(() => {
                 this.showNotification = false;
-            }, 6500);
-        }, 800);
+                this.cdr.detectChanges();
+            }, 10000);
+        }, 500);
     }
 
     dismissNotification(): void {
         this.showNotification = false;
+        this.cdr.detectChanges();
     }
 
     ngAfterViewInit(): void {
