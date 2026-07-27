@@ -109,23 +109,6 @@
                     }
                     <span class="bubble-label">{{ pill.label }}</span>
                 </button>
-
-                <!-- Tail stem for this individual thought bubble leading to head -->
-                <div class="individual-thought-tail">
-                    @if (i === 0 || i === 4) {
-                        <span class="tail-dot dot-xl"></span>
-                        <span class="tail-dot dot-large"></span>
-                        <span class="tail-dot dot-medium"></span>
-                        <span class="tail-dot dot-small"></span>
-                    } @else if (i === 1 || i === 3) {
-                        <span class="tail-dot dot-large"></span>
-                        <span class="tail-dot dot-medium"></span>
-                        <span class="tail-dot dot-small"></span>
-                    } @else {
-                        <span class="tail-dot dot-medium"></span>
-                        <span class="tail-dot dot-small"></span>
-                    }
-                </div>
             </div>
             }
         </div>

@@ -333,61 +333,33 @@
 /* Fan Arc Positions radiating out from avatar head center */
 /* Bubble 1: Me (Far Left) */
 .pos-1 {
-    top: 110px;
+    top: 105px;
     left: 2%;
-    align-items: flex-end;
-}
-.pos-1 .individual-thought-tail {
-    align-items: flex-end;
-    margin-right: 32px;
-    transform: rotate(-32deg);
 }
 
 /* Bubble 2: Projects (Mid Left) */
 .pos-2 {
-    top: 35px;
+    top: 30px;
     left: 18%;
-    align-items: flex-end;
-}
-.pos-2 .individual-thought-tail {
-    align-items: flex-end;
-    margin-right: 24px;
-    transform: rotate(-18deg);
 }
 
 /* Bubble 3: Skills (Top Center - directly above avatar head) */
 .pos-3 {
-    top: -10px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
-    align-items: center;
-}
-.pos-3 .individual-thought-tail {
-    align-items: center;
 }
 
 /* Bubble 4: Fun (Mid Right) */
 .pos-4 {
-    top: 35px;
+    top: 30px;
     right: 18%;
-    align-items: flex-start;
-}
-.pos-4 .individual-thought-tail {
-    align-items: flex-start;
-    margin-left: 24px;
-    transform: rotate(18deg);
 }
 
 /* Bubble 5: Contact (Far Right) */
 .pos-5 {
-    top: 110px;
+    top: 105px;
     right: 2%;
-    align-items: flex-start;
-}
-.pos-5 .individual-thought-tail {
-    align-items: flex-start;
-    margin-left: 32px;
-    transform: rotate(32deg);
 }
 
 /* Individual Soft Light Thought Bubble */
@@ -443,41 +415,6 @@
     width: 19px;
     height: 19px;
     flex-shrink: 0;
-}
-
-/* Individual Tail Stems Leading to Avatar Head */
-.individual-thought-tail {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 5px;
-}
-
-.tail-dot {
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1.5px solid rgba(0, 0, 0, 0.14);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.dot-xl {
-    width: 14px;
-    height: 14px;
-}
-
-.dot-large {
-    width: 11px;
-    height: 11px;
-}
-
-.dot-medium {
-    width: 8px;
-    height: 8px;
-}
-
-.dot-small {
-    width: 5px;
-    height: 5px;
 }
 
 /* Pill specific soft light color tints */
