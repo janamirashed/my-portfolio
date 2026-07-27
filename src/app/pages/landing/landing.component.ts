@@ -12,7 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class LandingComponent implements OnInit, AfterViewInit {
     userInput = '';
-    showNotification = false;
+    showNotification1 = false;
+    showNotification2 = false;
 
     navPills = [
         { label: 'Me', message: 'Tell me about yourself', class: 'pill-me', icon: 'smile' },
@@ -28,21 +29,29 @@ export class LandingComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit(): void {
-        // Show iOS banner popup on website opening
+        // Show 1st notification banner shortly after landing
         setTimeout(() => {
-            this.showNotification = true;
+            this.showNotification1 = true;
             this.cdr.detectChanges();
+        }, 400);
 
-            // Auto hide after 10 seconds if not dismissed
-            setTimeout(() => {
-                this.showNotification = false;
-                this.cdr.detectChanges();
-            }, 10000);
-        }, 500);
+        // Show 2nd notification banner 500ms after
+        setTimeout(() => {
+            this.showNotification2 = true;
+            this.cdr.detectChanges();
+        }, 900);
+
+        // Auto hide after 12 seconds if not clicked
+        setTimeout(() => {
+            this.showNotification1 = false;
+            this.showNotification2 = false;
+            this.cdr.detectChanges();
+        }, 12000);
     }
 
-    dismissNotification(): void {
-        this.showNotification = false;
+    dismissNotification(num: number): void {
+        if (num === 1) this.showNotification1 = false;
+        if (num === 2) this.showNotification2 = false;
         this.cdr.detectChanges();
     }
 

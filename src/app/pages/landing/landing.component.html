@@ -1,25 +1,46 @@
 <!-- Fluid Background Canvas -->
 <canvas id="fluid"></canvas>
 
-<!-- iOS Notification Banner -->
-@if (showNotification) {
-<div class="ios-banner" (click)="dismissNotification()">
-    <div class="ios-banner-header">
-        <div class="ios-banner-title">
-            <div class="ios-banner-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-                </svg>
+<!-- iOS Stacked Notification Banners -->
+<div class="ios-notification-container">
+    @if (showNotification1) {
+    <div class="ios-banner" (click)="dismissNotification(1)">
+        <div class="ios-banner-header">
+            <div class="ios-banner-title">
+                <div class="ios-banner-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3c-4.97 0-9 3.58-9 8 0 2.44 1.25 4.63 3.22 6.13-.23 1.24-.87 2.45-1.92 3.32-.2.17-.08.5.19.49 2.01-.08 3.73-.83 4.97-1.78.81.2 1.66.31 2.54.31 4.97 0 9-3.58 9-8s-4.03-8-9-8z" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <span>MESSAGES</span>
             </div>
-            <span>MESSAGES</span>
+            <span class="ios-banner-time">now</span>
         </div>
-        <span class="ios-banner-time">now</span>
+        <div class="ios-banner-body">
+            hello stalker :)
+        </div>
     </div>
-    <div class="ios-banner-body">
-        hello stalker :) take a look at my portfolio !!
+    }
+
+    @if (showNotification2) {
+    <div class="ios-banner" (click)="dismissNotification(2)">
+        <div class="ios-banner-header">
+            <div class="ios-banner-title">
+                <div class="ios-banner-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3c-4.97 0-9 3.58-9 8 0 2.44 1.25 4.63 3.22 6.13-.23 1.24-.87 2.45-1.92 3.32-.2.17-.08.5.19.49 2.01-.08 3.73-.83 4.97-1.78.81.2 1.66.31 2.54.31 4.97 0 9-3.58 9-8s-4.03-8-9-8z" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <span>MESSAGES</span>
+            </div>
+            <span class="ios-banner-time">now</span>
+        </div>
+        <div class="ios-banner-body">
+            take a look at my portfolio !!
+        </div>
     </div>
+    }
 </div>
-}
 
 <div class="landing-page">
     <!-- Header -->
