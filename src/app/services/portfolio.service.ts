@@ -24,7 +24,7 @@ export class PortfolioService {
             "I'm experienced in building scalable applications with clean architecture and design patterns!",
             "I'm passionate about collaborative development and creating user-centric solutions!",
             'Currently living in Alexandria, Egypt',
-            { type: 'photo-cluster', photos: ['/jana1.png', '/jana2.png'] }
+            { type: 'photo-cluster', photos: ['/avatar.png', '/avatar-hover.png'] }
         ],
 
         skills: [
