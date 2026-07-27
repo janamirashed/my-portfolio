@@ -23,8 +23,7 @@ export class PortfolioService {
             'I specialize in **full-stack web development** using Spring Boot & Angular.',
             "I'm experienced in building scalable applications with clean architecture and design patterns!",
             "I'm passionate about collaborative development and creating user-centric solutions!",
-            'Currently living in Alexandria, Egypt',
-            { type: 'photo-cluster', photos: ['/avatar.png', '/avatar-hover.png'] }
+            'Currently living in Alexandria, Egypt'
         ],
 
         skills: [
@@ -41,25 +40,25 @@ export class PortfolioService {
             '**UNIverse**\nA full-stack University Management System built with Spring Boot and Angular. Features role-based modules for students, faculty, and administrators.',
             {
                 type: 'photo-cluster',
-                photos: ['/universe3.png', '/universe2.png', '/universe1.png', '/universe.png'],
+                photos: ['universe3.png', 'universe2.png', 'universe1.png', 'universe.png'],
                 url: 'https://github.com/esraaabdelhaye/UNIverse'
             },
             '**Jaryn Mail Web App**\nA full-stack Email Application with send, receive, drafts, and attachments. Built with strong focus on design patterns.',
             {
                 type: 'photo-cluster',
-                photos: ['/jaryn2.png', '/jaryn1.png', '/jaryn.png'],
+                photos: ['jaryn2.png', 'jaryn1.png', 'jaryn.png'],
                 url: 'https://github.com/janamirashed/email-app'
             },
             '**Paint Web App**\nInteractive canvas application with shape tools, selection & transformation controls, undo/redo history, and JSON/XML exports.',
             {
                 type: 'photo-cluster',
-                photos: ['/paint.png'],
+                photos: ['paint.png'],
                 url: 'https://github.com/janamirashed/paint-app'
             },
             '**Producer-Consumer App**\nInteractive simulation of the Producer-Consumer problem with drag-and-drop canvas and real-time visualization.',
             {
                 type: 'photo-cluster',
-                photos: ['/prod-cons.png'],
+                photos: ['prod-cons.png'],
                 url: 'https://github.com/janamirashed/producer-consumer-app'
             }
         ],
