@@ -298,8 +298,8 @@
     align-items: center;
     justify-content: flex-end;
     width: 100%;
-    max-width: 660px;
-    height: 295px;
+    max-width: 700px;
+    height: 310px;
     margin: 0 auto 10px;
     z-index: 10;
     animation: fadeInUp 0.8s ease-out 0.2s backwards;
@@ -333,31 +333,31 @@
 /* Fan Arc Positions radiating out from avatar head center */
 /* Bubble 1: Me (Far Left) */
 .pos-1 {
-    top: 95px;
+    top: 110px;
     left: 2%;
     align-items: flex-end;
 }
 .pos-1 .individual-thought-tail {
     align-items: flex-end;
-    margin-right: 28px;
-    transform: rotate(-25deg);
+    margin-right: 32px;
+    transform: rotate(-32deg);
 }
 
 /* Bubble 2: Projects (Mid Left) */
 .pos-2 {
-    top: 25px;
+    top: 35px;
     left: 18%;
     align-items: flex-end;
 }
 .pos-2 .individual-thought-tail {
     align-items: flex-end;
     margin-right: 24px;
-    transform: rotate(-14deg);
+    transform: rotate(-18deg);
 }
 
 /* Bubble 3: Skills (Top Center - directly above avatar head) */
 .pos-3 {
-    top: -12px;
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
     align-items: center;
@@ -368,43 +368,48 @@
 
 /* Bubble 4: Fun (Mid Right) */
 .pos-4 {
-    top: 25px;
+    top: 35px;
     right: 18%;
     align-items: flex-start;
 }
 .pos-4 .individual-thought-tail {
     align-items: flex-start;
     margin-left: 24px;
-    transform: rotate(14deg);
+    transform: rotate(18deg);
 }
 
 /* Bubble 5: Contact (Far Right) */
 .pos-5 {
-    top: 95px;
+    top: 110px;
     right: 2%;
     align-items: flex-start;
 }
 .pos-5 .individual-thought-tail {
     align-items: flex-start;
-    margin-left: 28px;
-    transform: rotate(25deg);
+    margin-left: 32px;
+    transform: rotate(32deg);
 }
 
-/* Individual Thought Bubble */
+/* Individual Soft Light Thought Bubble */
 .thought-bubble {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 12px 22px;
     border-radius: 30px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.07),
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        inset 0 1px 1px rgba(255, 255, 255, 0.9);
     cursor: pointer;
     position: relative;
     user-select: none;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     animation: thoughtFloat 3.5s ease-in-out infinite alternate;
-    box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.16),
-        0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 @keyframes thoughtFloat {
@@ -414,10 +419,12 @@
 }
 
 .thought-bubble:hover {
-    transform: scale(1.12) translateY(-5px);
+    transform: scale(1.08) translateY(-5px);
     box-shadow: 
-        0 18px 45px rgba(0, 0, 0, 0.22),
-        0 6px 16px rgba(0, 0, 0, 0.12);
+        0 16px 40px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.96);
     z-index: 15;
 }
 
@@ -429,16 +436,13 @@
     font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.1px;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    color: #1d1d1f;
 }
 
 .pill-icon {
     width: 19px;
     height: 19px;
-    color: #ffffff;
     flex-shrink: 0;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
 }
 
 /* Individual Tail Stems Leading to Avatar Head */
@@ -451,66 +455,61 @@
 
 .tail-dot {
     border-radius: 50%;
-    border: 2px solid #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid rgba(0, 0, 0, 0.14);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.dot-outer {
+.dot-xl {
+    width: 14px;
+    height: 14px;
+}
+
+.dot-large {
     width: 11px;
     height: 11px;
 }
 
-.dot-inner {
-    width: 6px;
-    height: 6px;
+.dot-medium {
+    width: 8px;
+    height: 8px;
 }
 
-/* Color Schemes - High Visibility Vibrant Colors */
+.dot-small {
+    width: 5px;
+    height: 5px;
+}
 
-/* Me: Vibrant Cyan / Teal */
+/* Pill specific soft light color tints */
 .pill-me {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-    border: 2px solid rgba(255, 255, 255, 0.95);
+    background: linear-gradient(180deg, rgba(50, 150, 150, 0.12) 0%, rgba(255, 255, 255, 0.92) 100%);
+    border-color: rgba(50, 150, 150, 0.3);
 }
-.pos-1 .tail-dot {
-    background: #06b6d4;
-}
+.pill-me .pill-icon { color: var(--pill-me); }
 
-/* Projects: Vibrant Emerald Green */
 .pill-projects {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    border: 2px solid rgba(255, 255, 255, 0.95);
+    background: linear-gradient(180deg, rgba(62, 152, 88, 0.12) 0%, rgba(255, 255, 255, 0.92) 100%);
+    border-color: rgba(62, 152, 88, 0.3);
 }
-.pos-2 .tail-dot {
-    background: #10b981;
-}
+.pill-projects .pill-icon { color: var(--pill-projects); }
 
-/* Skills: Vibrant Violet Purple */
 .pill-skills {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    border: 2px solid rgba(255, 255, 255, 0.95);
+    background: linear-gradient(180deg, rgba(133, 110, 217, 0.12) 0%, rgba(255, 255, 255, 0.92) 100%);
+    border-color: rgba(133, 110, 217, 0.3);
 }
-.pos-3 .tail-dot {
-    background: #8b5cf6;
-}
+.pill-skills .pill-icon { color: var(--pill-skills); }
 
-/* Fun: Vibrant Hot Pink */
 .pill-fun {
-    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-    border: 2px solid rgba(255, 255, 255, 0.95);
+    background: linear-gradient(180deg, rgba(185, 95, 157, 0.12) 0%, rgba(255, 255, 255, 0.92) 100%);
+    border-color: rgba(185, 95, 157, 0.3);
 }
-.pos-4 .tail-dot {
-    background: #ec4899;
-}
+.pill-fun .pill-icon { color: var(--pill-fun); }
 
-/* Contact: Vibrant Amber Orange */
 .pill-contact {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    border: 2px solid rgba(255, 255, 255, 0.95);
+    background: linear-gradient(180deg, rgba(193, 148, 51, 0.12) 0%, rgba(255, 255, 255, 0.92) 100%);
+    border-color: rgba(193, 148, 51, 0.3);
 }
-.pos-5 .tail-dot {
-    background: #f59e0b;
-}
+.pill-contact .pill-icon { color: var(--pill-contact); }
 
 /* Responsive */
 @media (max-width: 680px) {
