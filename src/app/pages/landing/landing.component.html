@@ -48,14 +48,21 @@
         <p class="greeting-text">Hey, I'm <span class="name-highlight">Jana :D</span></p>
     </header>
 
-    <!-- Memoji & Thought Bubbles Container -->
-    <div class="memoji-thought-container">
-        <!-- Floating Thought Bubbles Cloud -->
-        <div class="thought-cloud-wrapper">
-            <div class="thought-bubbles-grid">
-                @for (pill of navPills; track pill.label; let i = $index) {
+    <!-- Memoji & Orbiting Thought Bubbles Stage -->
+    <div class="memoji-thought-stage">
+        <!-- Memoji Avatar Center -->
+        <div class="memoji-wrapper">
+            <img src="avatar.png" alt="Avatar" class="memoji memoji-default" />
+            <img src="avatar-hover.png" alt="Avatar looking at you" class="memoji memoji-hover" />
+        </div>
+
+        <!-- Orbiting Thought Bubbles around Avatar -->
+        <div class="thought-orbit-container">
+            @for (pill of navPills; track pill.label; let i = $index) {
+            <div class="thought-bubble-anchor" [class]="'pos-' + (i + 1)">
+                <!-- Individual Thought Bubble -->
                 <button class="thought-bubble" [class]="'thought-bubble ' + pill.class"
-                        [style.animation-delay]="(i * 0.35) + 's'"
+                        [style.animation-delay]="(i * 0.45) + 's'"
                         (click)="navigateToChat(pill.message)">
                     @switch (pill.icon) {
                     @case ('smile') {
@@ -108,21 +115,14 @@
                     }
                     <span class="bubble-label">{{ pill.label }}</span>
                 </button>
-                }
-            </div>
 
-            <!-- Thought Trail Circles stemming down to head -->
-            <div class="thought-trail">
-                <div class="thought-dot dot-large"></div>
-                <div class="thought-dot dot-medium"></div>
-                <div class="thought-dot dot-small"></div>
+                <!-- Tail stem for this individual thought bubble -->
+                <div class="individual-thought-tail">
+                    <span class="tail-dot dot-outer"></span>
+                    <span class="tail-dot dot-inner"></span>
+                </div>
             </div>
-        </div>
-
-        <!-- Memoji Avatar -->
-        <div class="memoji-wrapper">
-            <img src="avatar.png" alt="Avatar" class="memoji memoji-default" />
-            <img src="avatar-hover.png" alt="Avatar looking at you" class="memoji memoji-hover" />
+            }
         </div>
     </div>
 
