@@ -67,14 +67,18 @@
                 <div class="message-bubble" (click)="toggleReactionPicker($event, message)">
                     @if (message.showPicker) {
                     <div class="reaction-picker show" (click)="$event.stopPropagation()">
-                        @for (r of availableReactions; track r) {
-                        <button class="reaction-btn" (click)="react($event, message, r)">{{r}}</button>
+                        @for (r of availableReactionsWithIcons; track r.emoji) {
+                        <button class="reaction-btn" (click)="react($event, message, r.emoji)">
+                            <img [src]="r.icon" [alt]="r.emoji" class="reaction-apple-icon" />
+                        </button>
                         }
                     </div>
                     }
                     <p [innerHTML]="message.text"></p>
                     @if (message.reaction) {
-                    <span class="message-reaction">{{ message.reaction }}</span>
+                    <span class="message-reaction">
+                        <img [src]="getReactionIcon(message.reaction)" [alt]="message.reaction" class="reaction-badge-icon" />
+                    </span>
                     }
                 </div>
                 }

@@ -55,7 +55,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     ];
 
     isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-    availableReactions = ['❤️', '👍', '👎', '😂', '‼️', '❓'];
+    availableReactionsWithIcons = [
+        { emoji: '❤️', icon: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/2764-fe0f.png' },
+        { emoji: '👍', icon: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/1f44d.png' },
+        { emoji: '👎', icon: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/1f44e.png' },
+        { emoji: '😂', icon: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/1f602.png' },
+        { emoji: '‼️', icon: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/203c-fe0f.png' },
+        { emoji: '❓', icon: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/2753.png' }
+    ];
 
     private isAtBottom = true;
 
@@ -68,6 +75,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone
     ) { }
+
+    getReactionIcon(emoji: string): string {
+        const found = this.availableReactionsWithIcons.find(r => r.emoji === emoji);
+        return found ? found.icon : 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/2764-fe0f.png';
+    }
 
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
@@ -110,9 +122,46 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
 
     formatText(text: string): string {
-        return text
+        let formatted = text
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\n/g, '<br>');
+
+        const emojiMap: Record<string, string> = {
+            '❤️': '2764-fe0f',
+            '👍': '1f44d',
+            '👎': '1f44e',
+            '😂': '1f602',
+            '‼️': '203c-fe0f',
+            '❓': '2753',
+            '👋': '1f44b',
+            '🚀': '1f680',
+            '✨': '2728',
+            '💻': '1f4bb',
+            '🎨': '1f3a8',
+            '💌': '1f48c',
+            '😊': '1f60a',
+            '🔥': '1f525',
+            '🎉': '1f389',
+            '😁': '1f601',
+            '😃': '1f603',
+            '😀': '1f600',
+            '😍': '1f60d',
+            '🤔': '1f914',
+            '😎': '1f60e',
+            '🙌': '1f64c',
+            '💼': '1f4bc',
+            '📚': '1f4da',
+            '🎓': '1f393',
+            '☕': '2615'
+        };
+
+        for (const [emoji, code] of Object.entries(emojiMap)) {
+            const url = `https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/${code}.png`;
+            const imgTag = `<img src="${url}" class="apple-emoji-inline" alt="${emoji}" />`;
+            formatted = formatted.split(emoji).join(imgTag);
+        }
+
+        return formatted;
     }
 
     showTypingThenRespond(userMessage: string): void {
