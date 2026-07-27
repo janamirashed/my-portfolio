@@ -41,22 +41,26 @@
     <div class="chat-container" #messagesContainer (scroll)="onScroll($event)">
         <div class="messages-wrapper">
             @for (message of messages; track $index) {
-            <div class="message" [class.sent]="message.type === 'sent'" [class.received]="message.type === 'received'">
+            <div class="message" [class.sent]="message.type === 'sent'" [class.received]="message.type === 'received'" [class.picker-open]="message.showPicker">
                 @if (message.isPhotoCluster && message.photos) {
                 <div class="photo-cluster-container" [ngClass]="getClusterClass(message.photos.length)">
-                    @for (photo of message.photos; track $index; let i = $index) {
-                    <div class="cluster-photo" [class]="'cluster-photo photo-' + (i + 1)"
-                        (click)="openIosMenu(photo, message.photoUrl)">
-                        <img [src]="photo" [alt]="'Photo ' + (i + 1)" loading="lazy">
+                    @for (photo of message.photos; track photo; let idx = $index) {
+                    <div class="cluster-photo" [class]="'photo-' + (idx + 1)" (click)="openIosMenu(photo, message.linkUrl)">
+                        <img [src]="photo" [alt]="'Photo ' + (idx + 1)">
                     </div>
                     }
                 </div>
-                } @else if (message.isLink) {
+                } @else if (message.isPhotoCluster && message.photoUrl) {
+                <div class="photo-cluster-container photo-cluster-1">
+                    <div class="cluster-photo photo-1" (click)="openIosMenu(message.photoUrl, message.linkUrl)">
+                        <img [src]="message.photoUrl" alt="Photo">
+                    </div>
+                </div>
+                } @else if (message.isLink && message.linkUrl) {
                 <div class="message-bubble link-bubble">
-                    <a [href]="message.linkUrl" target="_blank" class="message-link-btn">
-                        {{ message.text }}
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
+                    <a [href]="message.linkUrl" target="_blank" rel="noopener noreferrer" class="message-link-btn">
+                        <span>{{ message.text }}</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                             <polyline points="15,3 21,3 21,9"></polyline>
                             <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -175,22 +179,24 @@
 </div>
 }
 
-<!-- Profile Picture Lightbox Modal -->
+<!-- Profile Picture Circular Lightbox Modal with Thought Bubble -->
 @if (showAvatarModal) {
 <div class="pfp-lightbox" (click)="closeAvatarPreview()">
-    <div class="pfp-card" (click)="$event.stopPropagation()">
+    <div class="pfp-modal-content" (click)="$event.stopPropagation()">
         <button class="pfp-close-btn" (click)="closeAvatarPreview()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
-        <div class="pfp-img-wrapper">
-            <img src="avatar.png" alt="Jana Profile Picture" class="pfp-full-img" />
+        <div class="pfp-thought-bubble">
+            <span class="pfp-status-dot"></span>
+            <span class="pfp-thought-text">online</span>
+            <div class="thought-tail-1"></div>
+            <div class="thought-tail-2"></div>
         </div>
-        <div class="pfp-footer">
-            <span class="pfp-name">Jana</span>
-            <span class="pfp-status">Online</span>
+        <div class="pfp-circle-avatar">
+            <img src="avatar.png" alt="Jana Profile Picture" />
         </div>
     </div>
 </div>
