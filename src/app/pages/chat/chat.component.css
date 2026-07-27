@@ -53,6 +53,9 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
 }
 
 .header-avatar {
@@ -60,6 +63,28 @@
     height: 56px;
     border-radius: 50%;
     object-fit: cover;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.header-avatar-default {
+    opacity: 1;
+}
+
+.header-avatar-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.header-profile:hover .header-avatar-default {
+    opacity: 0;
+}
+
+.header-profile:hover .header-avatar-hover {
+    opacity: 1;
+    transform: scale(1.08);
 }
 
 .header-actions {
