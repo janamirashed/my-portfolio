@@ -47,6 +47,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     menuImage = '';
     menuRepoUrl: string | null = null;
 
+    // iOS Photos Viewer state
+    showPhotoViewer = false;
+    activePhotoCluster: string[] = [];
+    activePhotoIndex = 0;
+    activeRepoUrl: string | null = null;
+
     quickReplies = [
         { label: 'More', message: 'Tell me more' },
         { label: 'Projects', message: 'Show projects' },
@@ -212,10 +218,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
                         linkUrl: content.url
                     });
                 } else if (content.type === 'photo-cluster') {
+                    const isExternalUrl = content.url?.startsWith('http://') || content.url?.startsWith('https://');
                     this.addMessage('', 'received', {
                         isPhotoCluster: true,
                         photos: content.photos,
-                        photoUrl: content.url
+                        photoUrl: !isExternalUrl ? content.url : undefined,
+                        linkUrl: isExternalUrl ? content.url : undefined
                     });
                 }
             }
@@ -347,5 +355,56 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.showScrollBtn = !atBottom;
     }
 
+    // iOS Photos Viewer Methods
+    openPhotoViewer(photos: string[] | string | undefined, startIndex: number = 0, repoUrl?: string | null): void {
+        if (!photos) return;
+        if (typeof photos === 'string') {
+            this.activePhotoCluster = [photos];
+        } else {
+            this.activePhotoCluster = photos;
+        }
+        this.activePhotoIndex = startIndex >= 0 && startIndex < this.activePhotoCluster.length ? startIndex : 0;
+        this.activeRepoUrl = repoUrl || null;
+        this.showPhotoViewer = true;
+    }
 
+    closePhotoViewer(): void {
+        this.showPhotoViewer = false;
+    }
+
+    nextPhoto(): void {
+        if (this.activePhotoIndex < this.activePhotoCluster.length - 1) {
+            this.activePhotoIndex++;
+        }
+    }
+
+    prevPhoto(): void {
+        if (this.activePhotoIndex > 0) {
+            this.activePhotoIndex--;
+        }
+    }
+
+    selectPhoto(index: number): void {
+        if (index >= 0 && index < this.activePhotoCluster.length) {
+            this.activePhotoIndex = index;
+        }
+    }
+
+    openRepoFromViewer(): void {
+        if (this.activeRepoUrl) {
+            window.open(this.activeRepoUrl, '_blank');
+        }
+    }
+
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvents(event: KeyboardEvent): void {
+        if (!this.showPhotoViewer) return;
+        if (event.key === 'ArrowRight') {
+            this.nextPhoto();
+        } else if (event.key === 'ArrowLeft') {
+            this.prevPhoto();
+        } else if (event.key === 'Escape') {
+            this.closePhotoViewer();
+        }
+    }
 }

@@ -695,6 +695,349 @@
     transform: rotate(10deg) translate(45px, 40px);
 }
 
+/* Photo Cluster Hover Action Badge */
+.photo-cluster-hover-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px) saturate(200%);
+    -webkit-backdrop-filter: blur(20px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 9999px;
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(0, 122, 255, 0.2);
+    color: #1d1d1f;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.photo-cluster-container:hover .photo-cluster-hover-badge {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.photo-cluster-hover-badge:hover {
+    background: rgba(255, 255, 255, 0.98);
+    transform: translate(-50%, -50%) scale(1.06) !important;
+    box-shadow: 
+        0 16px 40px rgba(0, 122, 255, 0.3),
+        0 0 0 1.5px rgba(0, 122, 255, 0.4);
+    color: #007AFF;
+}
+
+.photo-cluster-hover-badge:active {
+    transform: translate(-50%, -50%) scale(0.96) !important;
+}
+
+.ios-photos-flower-icon {
+    flex-shrink: 0;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+
+/* Cluster hover interactive fan out */
+.photo-cluster-2:hover .photo-1 {
+    transform: rotate(10deg) translate(22px, -12px) scale(1.03);
+}
+
+.photo-cluster-2:hover .photo-2 {
+    transform: rotate(-10deg) translate(-14px, 12px) scale(1.03);
+}
+
+.photo-cluster-3:hover .photo-1 {
+    transform: rotate(-20deg) translate(-55px, 28px) scale(1.03);
+}
+
+.photo-cluster-3:hover .photo-2 {
+    transform: rotate(0deg) translate(0px, -10px) scale(1.03);
+}
+
+.photo-cluster-3:hover .photo-3 {
+    transform: rotate(18deg) translate(50px, 18px) scale(1.03);
+}
+
+.photo-cluster-4:hover .photo-1 {
+    transform: rotate(-16deg) translate(-60px, -35px) scale(1.03);
+}
+
+.photo-cluster-4:hover .photo-2 {
+    transform: rotate(12deg) translate(50px, -30px) scale(1.03);
+}
+
+.photo-cluster-4:hover .photo-3 {
+    transform: rotate(-10deg) translate(-45px, 42px) scale(1.03);
+}
+
+.photo-cluster-4:hover .photo-4 {
+    transform: rotate(16deg) translate(55px, 46px) scale(1.03);
+}
+
+/* iOS Photos Viewer Modal */
+.ios-photos-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ios-photos-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 24px 24px;
+    box-sizing: border-box;
+    animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ios-photos-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 8px 0;
+    z-index: 20;
+}
+
+.ios-photos-close-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+    padding: 8px 16px;
+    color: #0A84FF;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ios-photos-close-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.03);
+}
+
+.ios-photos-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    padding: 8px 20px;
+}
+
+.ios-photos-heading-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ios-photos-app-title {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.ios-photos-counter-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 9999px;
+}
+
+.ios-photos-actions {
+    min-width: 90px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ios-photos-repo-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0A84FF 0%, #0066CC 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    padding: 8px 18px;
+    color: white;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(10, 132, 255, 0.4);
+    transition: all 0.2s ease;
+}
+
+.ios-photos-repo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(10, 132, 255, 0.6);
+}
+
+.ios-photos-stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 12px 0;
+    overflow: hidden;
+}
+
+.ios-photos-view-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.ios-photos-main-image {
+    max-width: 82vw;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.12);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ios-photos-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.ios-photos-arrow.prev {
+    left: 20px;
+}
+
+.ios-photos-arrow.next {
+    right: 20px;
+}
+
+.ios-photos-arrow:hover:not(.disabled) {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-50%) scale(1.12);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.ios-photos-arrow.disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.ios-photos-bottom-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+}
+
+.ios-photos-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(30px) saturate(200%);
+    -webkit-backdrop-filter: blur(30px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 10px 14px;
+    max-width: 90vw;
+    overflow-x: auto;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+}
+
+.ios-photos-strip::-webkit-scrollbar {
+    display: none;
+}
+
+.ios-photos-thumb-item {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+}
+
+.ios-photos-thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ios-photos-thumb-item:hover {
+    opacity: 0.9;
+    transform: scale(1.06);
+}
+
+.ios-photos-thumb-item.active {
+    opacity: 1;
+    border-color: #0A84FF;
+    transform: scale(1.12);
+    box-shadow: 0 0 18px rgba(10, 132, 255, 0.6);
+}
+
 /* iOS Context Menu */
 .ios-overlay {
     position: fixed;

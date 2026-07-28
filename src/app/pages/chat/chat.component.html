@@ -45,16 +45,46 @@
                 @if (message.isPhotoCluster && message.photos) {
                 <div class="photo-cluster-container" [ngClass]="getClusterClass(message.photos.length)">
                     @for (photo of message.photos; track photo; let idx = $index) {
-                    <div class="cluster-photo" [class]="'photo-' + (idx + 1)" (click)="openIosMenu(photo, message.linkUrl)">
+                    <div class="cluster-photo" [class]="'photo-' + (idx + 1)" (click)="openPhotoViewer(message.photos, idx, message.linkUrl)">
                         <img [src]="photo" [alt]="'Photo ' + (idx + 1)">
                     </div>
                     }
+                    <button class="photo-cluster-hover-badge" (click)="$event.stopPropagation(); openPhotoViewer(message.photos, 0, message.linkUrl)">
+                        <svg class="ios-photos-flower-icon" viewBox="0 0 100 100" width="18" height="18">
+                            <g transform="translate(50,50)">
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF3B30" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF9500" transform="rotate(45)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FFCC00" transform="rotate(90)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#34C759" transform="rotate(135)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#007AFF" transform="rotate(180)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#5856D6" transform="rotate(225)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#AF52DE" transform="rotate(270)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF2D55" transform="rotate(315)" />
+                            </g>
+                        </svg>
+                        <span>{{ message.photos.length > 1 ? 'View Photo Collection' : 'View Photo' }}</span>
+                    </button>
                 </div>
                 } @else if (message.isPhotoCluster && message.photoUrl) {
                 <div class="photo-cluster-container photo-cluster-1">
-                    <div class="cluster-photo photo-1" (click)="openIosMenu(message.photoUrl, message.linkUrl)">
+                    <div class="cluster-photo photo-1" (click)="openPhotoViewer(message.photoUrl, 0, message.linkUrl)">
                         <img [src]="message.photoUrl" alt="Photo">
                     </div>
+                    <button class="photo-cluster-hover-badge" (click)="$event.stopPropagation(); openPhotoViewer(message.photoUrl, 0, message.linkUrl)">
+                        <svg class="ios-photos-flower-icon" viewBox="0 0 100 100" width="18" height="18">
+                            <g transform="translate(50,50)">
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF3B30" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF9500" transform="rotate(45)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FFCC00" transform="rotate(90)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#34C759" transform="rotate(135)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#007AFF" transform="rotate(180)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#5856D6" transform="rotate(225)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#AF52DE" transform="rotate(270)" />
+                                <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF2D55" transform="rotate(315)" />
+                            </g>
+                        </svg>
+                        <span>View Photo</span>
+                    </button>
                 </div>
                 } @else if (message.isLink && message.linkUrl) {
                 <div class="message-bubble link-bubble">
@@ -192,6 +222,91 @@
         <div class="pfp-circle-avatar">
             <img src="avatar.png" alt="Jana Profile Picture" />
         </div>
+    </div>
+</div>
+}
+
+<!-- Fullscreen iOS Photos Viewer Modal -->
+@if (showPhotoViewer) {
+<div class="ios-photos-modal" (click)="closePhotoViewer()">
+    <div class="ios-photos-container" (click)="$event.stopPropagation()">
+        <!-- Header Toolbar -->
+        <div class="ios-photos-header">
+            <button class="ios-photos-close-btn" (click)="closePhotoViewer()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                    <path d="M15 19l-7-7 7-7" />
+                </svg>
+                <span>Done</span>
+            </button>
+
+            <div class="ios-photos-title">
+                <svg class="ios-photos-flower-icon" viewBox="0 0 100 100" width="24" height="24">
+                    <g transform="translate(50,50)">
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF3B30" />
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF9500" transform="rotate(45)" />
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FFCC00" transform="rotate(90)" />
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#34C759" transform="rotate(135)" />
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#007AFF" transform="rotate(180)" />
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#5856D6" transform="rotate(225)" />
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#AF52DE" transform="rotate(270)" />
+                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF2D55" transform="rotate(315)" />
+                    </g>
+                </svg>
+                <div class="ios-photos-heading-group">
+                    <span class="ios-photos-app-title">Photos</span>
+                    @if (activePhotoCluster.length > 1) {
+                    <span class="ios-photos-counter-badge">{{ activePhotoIndex + 1 }} of {{ activePhotoCluster.length }}</span>
+                    }
+                </div>
+            </div>
+
+            <div class="ios-photos-actions">
+                @if (activeRepoUrl) {
+                <button class="ios-photos-repo-btn" (click)="openRepoFromViewer()" title="Open GitHub Repository">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    <span>View Code</span>
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Main Photo Stage -->
+        <div class="ios-photos-stage">
+            @if (activePhotoCluster.length > 1) {
+            <button class="ios-photos-arrow prev" [class.disabled]="activePhotoIndex === 0" (click)="prevPhoto()" title="Previous Photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            }
+
+            <div class="ios-photos-view-box">
+                <img [src]="activePhotoCluster[activePhotoIndex]" [alt]="'Photo ' + (activePhotoIndex + 1)" class="ios-photos-main-image" />
+            </div>
+
+            @if (activePhotoCluster.length > 1) {
+            <button class="ios-photos-arrow next" [class.disabled]="activePhotoIndex === activePhotoCluster.length - 1" (click)="nextPhoto()" title="Next Photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
+            }
+        </div>
+
+        <!-- Bottom Thumbnails & Bar -->
+        @if (activePhotoCluster.length > 1) {
+        <div class="ios-photos-bottom-bar">
+            <div class="ios-photos-strip">
+                @for (img of activePhotoCluster; track img; let i = $index) {
+                <button class="ios-photos-thumb-item" [class.active]="i === activePhotoIndex" (click)="selectPhoto(i)">
+                    <img [src]="img" [alt]="'Thumb ' + (i + 1)" />
+                </button>
+                }
+            </div>
+        </div>
+        }
     </div>
 </div>
 }
