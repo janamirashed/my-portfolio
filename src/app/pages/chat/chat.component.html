@@ -251,15 +251,15 @@
 
             <div class="ios-photos-title">
                 <svg class="ios-photos-flower-icon" viewBox="0 0 100 100" width="24" height="24">
-                    <g transform="translate(50,50)">
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF3B30" />
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF9500" transform="rotate(45)" />
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FFCC00" transform="rotate(90)" />
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#34C759" transform="rotate(135)" />
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#007AFF" transform="rotate(180)" />
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#5856D6" transform="rotate(225)" />
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#AF52DE" transform="rotate(270)" />
-                        <ellipse cx="0" cy="-24" rx="9" ry="18" fill="#FF2D55" transform="rotate(315)" />
+                    <g transform="translate(50,50)" style="mix-blend-mode: multiply; opacity: 0.9;">
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#F58220" />
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#FFAE00" transform="rotate(45)" />
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#7CBC43" transform="rotate(90)" />
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#00A896" transform="rotate(135)" />
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#53A0FD" transform="rotate(180)" />
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#7B61FF" transform="rotate(225)" />
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#D96FB1" transform="rotate(270)" />
+                        <rect x="-11" y="-44" width="22" height="36" rx="11" fill="#F25252" transform="rotate(315)" />
                     </g>
                 </svg>
                 <div class="ios-photos-heading-group">
@@ -302,15 +302,8 @@
                 </div>
                 }
 
-                <!-- Reaction Action Pill Button -->
-                <button class="viewer-react-trigger-btn" (click)="$event.stopPropagation(); toggleViewerReactionPicker($event)" title="React to this photo">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                    <span>React</span>
-                </button>
 
-                <!-- Reaction Picker Popup -->
+                <!-- Reaction Picker Popup (Appears directly over photo on click) -->
                 @if (showViewerReactionPicker) {
                 <div class="viewer-reaction-picker show" (click)="$event.stopPropagation()">
                     @for (r of availableReactionsWithIcons; track r.emoji) {
