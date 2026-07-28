@@ -53,6 +53,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     activePhotoIndex = 0;
     activeRepoUrl: string | null = null;
 
+    // Per-photo reactions map (photo URL -> emoji string)
+    photoReactions: Record<string, string> = {};
+    showViewerReactionPicker = false;
+
     quickReplies = [
         { label: 'More', message: 'Tell me more' },
         { label: 'Projects', message: 'Show projects' },
@@ -370,24 +374,51 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     closePhotoViewer(): void {
         this.showPhotoViewer = false;
+        this.showViewerReactionPicker = false;
     }
 
     nextPhoto(): void {
         if (this.activePhotoIndex < this.activePhotoCluster.length - 1) {
             this.activePhotoIndex++;
+            this.showViewerReactionPicker = false;
         }
     }
 
     prevPhoto(): void {
         if (this.activePhotoIndex > 0) {
             this.activePhotoIndex--;
+            this.showViewerReactionPicker = false;
         }
     }
 
     selectPhoto(index: number): void {
         if (index >= 0 && index < this.activePhotoCluster.length) {
             this.activePhotoIndex = index;
+            this.showViewerReactionPicker = false;
         }
+    }
+
+    getCurrentPhotoReaction(): string | undefined {
+        const currentPhoto = this.activePhotoCluster[this.activePhotoIndex];
+        return currentPhoto ? this.photoReactions[currentPhoto] : undefined;
+    }
+
+    toggleViewerReactionPicker(event: Event): void {
+        event.stopPropagation();
+        this.showViewerReactionPicker = !this.showViewerReactionPicker;
+    }
+
+    reactToCurrentPhoto(event: Event, emoji: string): void {
+        event.stopPropagation();
+        const currentPhoto = this.activePhotoCluster[this.activePhotoIndex];
+        if (!currentPhoto) return;
+
+        if (this.photoReactions[currentPhoto] === emoji) {
+            delete this.photoReactions[currentPhoto];
+        } else {
+            this.photoReactions[currentPhoto] = emoji;
+        }
+        this.showViewerReactionPicker = false;
     }
 
     openRepoFromViewer(): void {

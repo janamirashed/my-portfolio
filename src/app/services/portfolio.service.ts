@@ -41,13 +41,13 @@ export class PortfolioService {
             '**UNIverse**\nA full-stack University Management System built with Spring Boot and Angular. Features role-based modules for students, faculty, and administrators.',
             {
                 type: 'photo-cluster',
-                photos: ['universe3.png', 'universe2.png', 'universe1.png', 'universe.png'],
+                photos: ['universe.png', 'universe1.png', 'universe2.png', 'universe3.png'],
                 url: 'https://github.com/esraaabdelhaye/UNIverse'
             },
             '**Jaryn Mail Web App**\nA full-stack Email Application with send, receive, drafts, and attachments. Built with strong focus on design patterns.',
             {
                 type: 'photo-cluster',
-                photos: ['jaryn2.png', 'jaryn1.png', 'jaryn.png'],
+                photos: ['jaryn.png', 'jaryn1.png', 'jaryn2.png'],
                 url: 'https://github.com/janamirashed/email-app'
             },
             '**Paint Web App**\nInteractive canvas application with shape tools, selection & transformation controls, undo/redo history, and JSON/XML exports.',

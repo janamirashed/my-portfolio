@@ -47,6 +47,11 @@
                     @for (photo of message.photos; track photo; let idx = $index) {
                     <div class="cluster-photo" [class]="'photo-' + (idx + 1)" (click)="openPhotoViewer(message.photos, idx, message.linkUrl)">
                         <img [src]="photo" [alt]="'Photo ' + (idx + 1)">
+                        @if (photoReactions[photo]) {
+                        <span class="cluster-photo-reaction-badge">
+                            <img [src]="getReactionIcon(photoReactions[photo])" [alt]="photoReactions[photo]" class="reaction-badge-icon" />
+                        </span>
+                        }
                     </div>
                     }
                     <button class="photo-cluster-hover-badge" (click)="$event.stopPropagation(); openPhotoViewer(message.photos, 0, message.linkUrl)">
@@ -69,6 +74,11 @@
                 <div class="photo-cluster-container photo-cluster-1">
                     <div class="cluster-photo photo-1" (click)="openPhotoViewer(message.photoUrl, 0, message.linkUrl)">
                         <img [src]="message.photoUrl" alt="Photo">
+                        @if (photoReactions[message.photoUrl]) {
+                        <span class="cluster-photo-reaction-badge">
+                            <img [src]="getReactionIcon(photoReactions[message.photoUrl])" [alt]="photoReactions[message.photoUrl]" class="reaction-badge-icon" />
+                        </span>
+                        }
                     </div>
                     <button class="photo-cluster-hover-badge" (click)="$event.stopPropagation(); openPhotoViewer(message.photoUrl, 0, message.linkUrl)">
                         <svg class="ios-photos-flower-icon" viewBox="0 0 100 100" width="18" height="18">
@@ -282,8 +292,34 @@
             </button>
             }
 
-            <div class="ios-photos-view-box">
+            <div class="ios-photos-view-box" (click)="toggleViewerReactionPicker($event)">
                 <img [src]="activePhotoCluster[activePhotoIndex]" [alt]="'Photo ' + (activePhotoIndex + 1)" class="ios-photos-main-image" />
+
+                <!-- Active Photo Reaction Badge -->
+                @if (getCurrentPhotoReaction()) {
+                <div class="viewer-photo-reaction-badge" (click)="$event.stopPropagation(); toggleViewerReactionPicker($event)" title="Click to change reaction">
+                    <img [src]="getReactionIcon(getCurrentPhotoReaction()!)" [alt]="getCurrentPhotoReaction()!" class="reaction-badge-icon" />
+                </div>
+                }
+
+                <!-- Reaction Action Pill Button -->
+                <button class="viewer-react-trigger-btn" (click)="$event.stopPropagation(); toggleViewerReactionPicker($event)" title="React to this photo">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span>React</span>
+                </button>
+
+                <!-- Reaction Picker Popup -->
+                @if (showViewerReactionPicker) {
+                <div class="viewer-reaction-picker show" (click)="$event.stopPropagation()">
+                    @for (r of availableReactionsWithIcons; track r.emoji) {
+                    <button class="reaction-btn" (click)="reactToCurrentPhoto($event, r.emoji)">
+                        <img [src]="r.icon" [alt]="r.emoji" class="reaction-apple-icon" />
+                    </button>
+                    }
+                </div>
+                }
             </div>
 
             @if (activePhotoCluster.length > 1) {
