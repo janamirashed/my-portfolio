@@ -403,6 +403,20 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         return currentPhoto ? this.photoReactions[currentPhoto] : undefined;
     }
 
+    getClusterReactions(message: ChatMessage): string[] {
+        if (!message || !message.isPhotoCluster) {
+            return message?.reaction ? [message.reaction] : [];
+        }
+        const photos = message.photos || (message.photoUrl ? [message.photoUrl] : []);
+        const emojis: string[] = [];
+        for (const photo of photos) {
+            if (this.photoReactions[photo]) {
+                emojis.push(this.photoReactions[photo]);
+            }
+        }
+        return Array.from(new Set(emojis));
+    }
+
     toggleViewerReactionPicker(event: Event): void {
         event.stopPropagation();
         this.showViewerReactionPicker = !this.showViewerReactionPicker;
@@ -418,7 +432,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         } else {
             this.photoReactions[currentPhoto] = emoji;
         }
+        this.photoReactions = { ...this.photoReactions };
         this.showViewerReactionPicker = false;
+        this.cdr.detectChanges();
     }
 
     openRepoFromViewer(): void {
