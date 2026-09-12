@@ -5,6 +5,7 @@ export interface MessageContent {
     text?: string;
     url?: string;
     photos?: string[];
+    wide?: boolean;
 }
 
 export type Message = string | MessageContent;
@@ -19,84 +20,79 @@ export class PortfolioService {
     private responses: Record<string, Message[]> = {
         about: [
             'Hey there! :)',
-            "I'm Jana, a Computer Science and Engineering student at Alexandria University.",
-            'I specialize in **full-stack web development** using Spring Boot & Angular.',
-            "I'm experienced in building scalable applications with clean architecture and design patterns!",
-            "I'm passionate about collaborative development and creating user-centric solutions!",
-            'Currently living in Alexandria, Egypt',
-            { type: 'photo-cluster', photos: ['jana1.jpeg', 'jana2.jpeg'] }
+            "I'm Jana, a Computer & Systems Engineering student at Alexandria University, with a strong focus on software development and a growing interest in AI and machine learning.\n\nI enjoy building full-stack applications, working with Java and Spring Boot, and turning ideas into clean, practical user experiences.\n\nI've also been exploring machine learning and computer vision through hands-on projects, combining software engineering with AI to build interactive applications.\n\nI care about writing maintainable code, designing intuitive interfaces, and understanding how things work under the hood.",
+            { type: 'photo-cluster', photos: ['jana1.jpeg', 'jana2.jpeg'] },
+            'Want to explore my projects, skills, or experience?'
         ],
 
         skills: [
-            "Here's my tech stack:",
-            '**Programming Languages:**\nC/C++, Java, HTML, CSS, JavaScript, TypeScript',
-            '**Frameworks:**\nSpring Boot, Angular, Tailwind CSS',
-            '**Databases:**\nMySQL',
-            '**Technical Skills:**\n• Object-oriented programming\n• Design patterns (Command, Strategy, Factory, Builder, Observer, Proxy)\n• Git/GitHub version control\n• API development & debugging\n• Agile practices',
-            '**Certifications:**\n• IBM Java Developer - Full-stack Java development\n• AWS Cloud Foundations - EC2, S3, RDS, Lambda'
+            "**Programming:**\nC++, Java, Python, JavaScript, TypeScript, HTML & CSS\n\n**Backend & Web:**\nSpring Boot, Angular, React, REST APIs, Tailwind CSS\n\n**AI & Computer Vision:**\nMachine Learning, Deep Learning, TensorFlow/Keras, OpenCV, MediaPipe, YOLO\n\n**Databases & Tools:**\nMySQL, PostgreSQL, Git, GitHub, Docker\n\n**Software Engineering:**\nObject-Oriented Programming, Design Patterns, API Development, Debugging\n\n**Soft Skills:**\nProblem Solving, Team Collaboration, Communication, Adaptability, Attention to Detail, Continuous Learning",
+            "I'm continuously expanding this stack as I explore AI/ML alongside software engineering."
         ],
 
         projects: [
-            'Here are my featured projects:',
-            '**UNIverse**\nA full-stack University Management System built with Spring Boot and Angular. Features role-based modules for students, faculty, and administrators.',
+            "Here's a look at some of the projects I've built:",
+            "**Gesture Object Vision**\nAn interactive computer-vision application that combines hand-gesture recognition and real-time object detection. Built with TensorFlow/Keras, MediaPipe, YOLO, OpenCV, FastAPI, and React, with a web dashboard for interacting with the models in real time.",
+            {
+                type: 'photo-cluster',
+                photos: ['gesture.png', 'gesture2.png', 'gesture3.png'],
+                url: 'https://github.com/janamirashed/gesture-obj-vision'
+            },
+            "**UNIverse \u2014 University Management System**\nA full-stack university management platform built with Spring Boot and Angular, featuring role-based workflows for students, faculty, and administrators, including course registration, grade management, and announcements.",
             {
                 type: 'photo-cluster',
                 photos: ['universe.png', 'universe1.png', 'universe2.png', 'universe3.png'],
-                url: 'https://github.com/esraaabdelhaye/UNIverse'
+                url: 'https://github.com/janamirashed/UNIverse'
             },
-            '**Jaryn Mail Web App**\nA full-stack Email Application with send, receive, drafts, and attachments. Built with strong focus on design patterns.',
+            "**Jaryn Mail \u2014 Webmail Application**\nA full-featured webmail application designed around clean architecture and software design patterns, supporting email composition, drafts, folders, search, filtering, and file attachments.",
             {
                 type: 'photo-cluster',
-                photos: ['jaryn.png', 'jaryn1.png', 'jaryn2.png'],
+                photos: ['jaryn.png', 'jaryn1.png', 'jaryn2.png', 'jaryn3.png'],
                 url: 'https://github.com/janamirashed/email-app'
             },
-            '**Paint Web App**\nInteractive canvas application with shape tools, selection & transformation controls, undo/redo history, and JSON/XML exports.',
+            "**Paint Web App**\nAn interactive graphics application with custom drawing tools, shape transformations, undo/redo functionality, and JSON/XML project export.",
             {
                 type: 'photo-cluster',
-                photos: ['paint.png'],
+                photos: ['paint.png', 'paint1.png'],
+                wide: true,
                 url: 'https://github.com/janamirashed/paint-app'
             },
-            '**Producer-Consumer App**\nInteractive simulation of the Producer-Consumer problem with drag-and-drop canvas and real-time visualization.',
+            "**Producer-Consumer Simulator**\nAn interactive visualization of the classic Producer-Consumer concurrency problem, with real-time process visualization and controls for experimenting with concurrent execution.",
             {
                 type: 'photo-cluster',
                 photos: ['prod-cons.png'],
+                wide: true,
                 url: 'https://github.com/janamirashed/producer-consumer-app'
-            }
+            },
+            "These are just some highlights. Tap any project above to browse its gallery and source code, or check out more of my work on GitHub.",
+            { type: 'link', text: 'View more projects on GitHub', url: 'https://github.com/janamirashed?tab=repositories' }
         ],
 
         experience: [
-            'My journey so far:',
-            '**Education**\nBachelor of Computer Science and Engineering\nAlexandria University | CGPA: 3.73',
-            '**IBM Java Developer**\nComprehensive professional certificate covering core programming, Spring Framework, Hibernate, RESTful APIs, Docker, and CI/CD practices.',
-            '**AWS Cloud Foundations**\nCore services (EC2, S3, RDS, Lambda), cloud architecture principles, security, IAM, and cost management.',
-            '**What I bring:**\n• Strong foundation in clean architecture\n• Experience with design patterns\n• Collaborative team player\n• Problem-solving mindset',
-            'Open to exciting opportunities!'
+            "Here's a snapshot of my academic journey and background 🎓",
+            "**Academic Background & Certifications:**\n\n🏛️ **Alexandria University**: B.Sc. in Computer Science and Engineering (CGPA: 3.73)\n\n☕ **IBM Java Developer:** Intensive training covering core Java, Spring Framework, Hibernate, RESTful APIs, Docker, and CI/CD practices.\n\n☁️ **AWS Cloud Foundations:** Core cloud infrastructure, EC2, S3, RDS, IAM security, and serverless compute.",
+            "**What I bring to a team:**\nA strong foundation in clean architecture, hands-on experience with design patterns, and an eagerness to solve complex engineering challenges collaboratively.",
+            "I'm always excited to take on new software engineering opportunities and collaborations! ✨"
         ],
 
         contact: [
-            "Let's connect!",
-            { type: 'link', text: 'janarashed23010359@gmail.com', url: 'mailto:janarashed23010359@gmail.com' },
-            { type: 'link', text: 'LinkedIn Profile', url: 'https://linkedin.com/in/jana-rashed' },
-            { type: 'link', text: 'GitHub Profile', url: 'https://github.com/janamirashed' },
-            '**Phone:** +20 1151900187',
-            "Feel free to reach out anytime! I'm always happy to chat about tech, projects, or potential collaborations."
+            "I'd love to hear from you! 💌",
+            "Whether you're reaching out about an opportunity, collaboration, my projects, or just want to talk tech, feel free to get in touch.\n\n**Email:** [janarashed23010359@gmail.com](mailto:janarashed23010359@gmail.com)\n**Phone:** [+20 115 190 0187](tel:+201151900187)\n**Location:** Alexandria, Egypt",
+            { type: 'link', text: 'LinkedIn: Jana Rashed', url: 'https://linkedin.com/in/jana-rashed' },
+            { type: 'link', text: 'GitHub: janamirashed', url: 'https://github.com/janamirashed' },
+            "Thanks for stopping by! I look forward to connecting! 😊"
         ],
 
         fun: [
-            'Some things about me:',
-            'I love exploring new technologies and design patterns',
-            'Problem-solving is my favorite challenge',
-            'I thrive in collaborative team environments',
-            'Always striving for clean, scalable code',
-            'Passionate about creating user-centric solutions',
-            'Currently diving deeper into cloud technologies',
-            'What would you like to know more about?'
+            'A few things about me ✨:',
+            "I like turning ideas into things you can actually interact with, especially projects involving cameras, AI, and web interfaces 📸\n\nI enjoy figuring out why something works, not just making it work.\n\nI'm particularly interested in the intersection of software engineering and AI, so my projects often combine both.\n\nI also have a soft spot for clean, modern interfaces, I like when something is technically solid and pleasant to use.\n\nAnd yes, I'll probably end up experimenting with a new technology just because I was curious about how it works ☕",
+            'What would you like to explore? 🚀'
         ],
 
         default: [
-            'That\'s interesting! Feel free to ask me about:',
-            '• Who I am and my background\n• My tech stack and skills\n• Projects I\'ve built\n• My education and certifications\n• How to get in touch',
-            'What would you like to know?'
+            "Thanks for reaching out! 👋",
+            "I can help answer questions about my work and experience. Here are a few things you can explore:\n\n• **About me:** My background, studies, and what I love building\n• **Skills:** Tech stack, Spring Boot, Angular, and cloud tools\n• **Projects:** Featured applications with photos and GitHub repos\n• **Contact:** Direct email, phone, LinkedIn, and GitHub links",
+            "Feel free to tap one of the quick replies below or type whatever is on your mind!"
         ]
     };
 
@@ -123,9 +119,9 @@ export class PortfolioService {
         }
         if (lowerMessage.includes('more') || lowerMessage.includes('tell me')) {
             return [
-                'What specifically would you like to know more about?',
-                '• My projects and work\n• Technologies I use\n• My background\n• How to connect',
-                'Just ask!'
+                "Of course! What would you like to know?",
+                "I can tell you more about:\n\n• **My Projects** — what I've built and the technologies behind them\n• **My Skills** — the tools and technologies I work with\n• **About Me** — my interests and what I enjoy building\n• **Getting in Touch** — ways to connect with me",
+                "Pick a topic and let's dive in."
             ];
         }
 

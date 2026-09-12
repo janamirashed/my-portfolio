@@ -14,6 +14,7 @@ interface ChatMessage {
     isPhotoCluster?: boolean;
     photos?: string[];
     photoUrl?: string;
+    wide?: boolean;
     reaction?: string;
     showPicker?: boolean;
 }
@@ -131,9 +132,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         setTimeout(() => this.scrollToBottom(), 50);
     }
 
+    @ViewChild('chatTextarea') private chatTextarea?: ElementRef<HTMLTextAreaElement>;
+
     formatText(text: string): string {
         let formatted = text
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: underline;">$1</a>')
             .replace(/\n/g, '<br>');
 
         const emojiMap: Record<string, string> = {
@@ -162,12 +166,24 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             '💼': '1f4bc',
             '📚': '1f4da',
             '🎓': '1f393',
-            '☕': '2615'
+            '☕': '2615',
+            '📧': '1f4e7',
+            '📞': '1f4de',
+            '📍': '1f4cd',
+            '💡': '1f4a1',
+            '🏛️': '1f3db-fe0f',
+            '⚙️': '2699-fe0f',
+            '☁️': '2601-fe0f',
+            '🇪🇬': '1f1ea-1f1ec',
+            '🤖': '1f916',
+            '🛠️': '1f6e0-fe0f',
+            '🌐': '1f310',
+            '📸': '1f4f8'
         };
 
         for (const [emoji, code] of Object.entries(emojiMap)) {
             const url = `https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/${code}.png`;
-            const imgTag = `<img src="${url}" class="apple-emoji-inline" alt="${emoji}" />`;
+            const imgTag = `<img src="${url}" class="apple-emoji-inline" style="width: 20px !important; height: 20px !important; max-width: 20px !important; max-height: 20px !important; vertical-align: -3px !important; margin: 0 2px !important; display: inline-block !important; object-fit: contain !important;" alt="${emoji}" />`;
             formatted = formatted.split(emoji).join(imgTag);
         }
 
@@ -187,7 +203,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             setTimeout(() => {
                 const responses = this.portfolioService.getResponse(userMessage);
                 this.sendMessagesSequentially(responses);
-            }, 800 + Math.random() * 400);
+            }, 700 + Math.random() * 300);
         }, 300);
     }
 
@@ -226,6 +242,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
                     this.addMessage('', 'received', {
                         isPhotoCluster: true,
                         photos: content.photos,
+                        wide: content.wide,
                         photoUrl: !isExternalUrl ? content.url : undefined,
                         linkUrl: isExternalUrl ? content.url : undefined
                     });
@@ -241,10 +258,23 @@ export class ChatComponent implements OnInit, AfterViewChecked {
                     this.cdr.detectChanges();
                     this.scrollToBottom();
 
+                    // Calculate typing duration based on message length
+                    const nextMsg = messages[index];
+                    let typingDuration = 600 + Math.random() * 300;
+                    if (typeof nextMsg === 'string') {
+                        if (nextMsg.length > 150) {
+                            typingDuration = 850 + Math.random() * 350;
+                        } else if (nextMsg.length < 50) {
+                            typingDuration = 450 + Math.random() * 200;
+                        }
+                    } else {
+                        typingDuration = 500;
+                    }
+
                     setTimeout(() => {
                         sendNext();
-                    }, 500 + Math.random() * 400);
-                }, 300);
+                    }, typingDuration);
+                }, 250);
             } else {
                 sendNext();
             }
@@ -252,12 +282,27 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
         sendNext();
     }
-    // ... skipped ...
+
     scrollToBottom(): void {
         if (this.messagesContainer) {
             // Force scroll to specific value to ensure it sticks
             this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
             this.showScrollBtn = false;
+        }
+    }
+
+    onTextareaKeydown(event: KeyboardEvent): void {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            this.sendMessage();
+        }
+    }
+
+    autoResizeTextarea(event?: Event): void {
+        const textarea = this.chatTextarea?.nativeElement || (event?.target as HTMLTextAreaElement);
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
         }
     }
 
@@ -267,6 +312,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.addMessage(this.userInput, 'sent');
         const message = this.userInput;
         this.userInput = '';
+        if (this.chatTextarea) {
+            this.chatTextarea.nativeElement.style.height = 'auto';
+        }
         this.showTypingThenRespond(message);
     }
 
@@ -440,6 +488,28 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     openRepoFromViewer(): void {
         if (this.activeRepoUrl) {
             window.open(this.activeRepoUrl, '_blank');
+        }
+    }
+
+    private touchStartX = 0;
+    private touchStartY = 0;
+
+    onTouchStart(event: TouchEvent): void {
+        if (!event.changedTouches || event.changedTouches.length === 0) return;
+        this.touchStartX = event.changedTouches[0].clientX;
+        this.touchStartY = event.changedTouches[0].clientY;
+    }
+
+    onTouchEnd(event: TouchEvent): void {
+        if (!event.changedTouches || event.changedTouches.length === 0) return;
+        const diffX = event.changedTouches[0].clientX - this.touchStartX;
+        const diffY = event.changedTouches[0].clientY - this.touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+            if (diffX < 0) {
+                this.nextPhoto();
+            } else {
+                this.prevPhoto();
+            }
         }
     }
 
